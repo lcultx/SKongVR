@@ -47,6 +47,7 @@ export default class Desk extends THREE.Object3D implements Type.AsyncLoadable{
     object.position.x = 0;
     object.position.y = 0;
     object.position.z = 0;
+    object.name = 'Desk';
     callback(object);
 
     }, onProgress, onError );

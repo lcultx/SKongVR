@@ -1,3 +1,5 @@
+import RotatingCube from './RotatingCube';
+import Desk from './Desk';
 export default class WonderScene extends THREE.Scene{
   constructor(){
     super();
@@ -28,8 +30,14 @@ export default class WonderScene extends THREE.Scene{
       (<any>ground).material.map.wrapT = THREE.RepeatWrapping;
       // note that because the ground does not cast a shadow, .castShadow is left false
       ground.receiveShadow = true;
+      ground.name = 'ground'
       this.add( ground );
 
+      //this.add( new RotatingCube(1*1000,0x00ff00) );
+
+      new Desk().load((desk:Desk)=>{
+        this.add(desk);
+      });
 
 
   }

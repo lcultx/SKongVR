@@ -7,7 +7,7 @@ export default class WonderRenderer extends THREE.WebGLRenderer{
         this.setSize( window.innerWidth, window.innerHeight );
 
         this.gammaInput = true;
-    this.gammaOutput = true;
+    this.gammaOutput = true; 
     this.shadowMap.enabled = true;
 
   }
