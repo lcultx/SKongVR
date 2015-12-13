@@ -1,0 +1,19 @@
+{
+  "name": "wonder-vr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.oschina.net/gastrodia/WonderVR.git"
+  },
+  "dependencies": {
+    "es6-module-loader": "^0.16.6",
+    "systemjs": "^0.16.11"
+  },
+  "author": "",
+  "license": "ISC"
+}

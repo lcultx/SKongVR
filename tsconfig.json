@@ -72,7 +72,13 @@
         "./typings/threejs/three-vreffect.d.ts",
         "./typings/threejs/three.d.ts",
         "./typings/tsd.d.ts",
+        "./src/Desk.ts",
         "./src/main.ts",
+        "./src/RotatingCube.ts",
+        "./src/Type.ts",
+        "./src/WonderCamera.ts",
+        "./src/WonderRenderer.ts",
+        "./src/WonderScene.ts",
         "./src/WonderVR.ts"
     ],
     "exclude": [],
