@@ -44,11 +44,11 @@ declare module THREE {
         pan( deltaX: number, deltaY: number): void;
         dollyIn(dollyScale: number): void;
         dollyOut(dollyScale: number): void;
-        update(): void;
+        update(delta?:any): void;
         reset(): void;
         getPolarAngle() : number;
         getAzimuthalAngle(): number;
-        
+
         // EventDispatcher mixins
         addEventListener(type: string, listener: (event: any) => void ): void;
         hasEventListener(type: string, listener: (event: any) => void): void;

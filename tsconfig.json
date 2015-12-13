@@ -72,7 +72,8 @@
         "./typings/threejs/three-vreffect.d.ts",
         "./typings/threejs/three.d.ts",
         "./typings/tsd.d.ts",
-        "./src/main.ts"
+        "./src/main.ts",
+        "./src/WonderVR.ts"
     ],
     "exclude": [],
     "atom": {

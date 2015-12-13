@@ -21941,7 +21941,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 		}
 
 		state.disableUnusedAttributes();
-		
+
 
 		_gl.drawArrays( _gl.TRIANGLES, 0, object.count );
 
@@ -25094,8 +25094,8 @@ THREE.WebGLBufferRenderer = function ( _gl, extensions, _infoRender ) {
 	}
 
 	function render( start, count ) {
-		
-		console.log(mode,start,count);
+
+		//console.log(mode,start,count);
 
 		_gl.drawArrays( mode, start, count );
 
@@ -26538,7 +26538,7 @@ THREE.WebGLShader = ( function () {
 	return function WebGLShader( gl, type, string ) {
 
 		var shader = gl.createShader( type );
-		console.log(string)
+		//console.log(string)
 		gl.shaderSource( shader, string );
 		gl.compileShader( shader );
 
