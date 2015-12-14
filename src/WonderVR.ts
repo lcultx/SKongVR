@@ -8,7 +8,8 @@ export default class WonderVR{
   camera:WonderCamera;
   scene:WonderScene;
   renderer:WonderRenderer;
-  cameraControls;
+  cameraControls:THREE.OrbitControls;
+  transformControls:THREE.TransformControls ;
   constructor(){
 
     ///	scene.fog = new THREE.Fog( 0xffffff, 1000, 4000 );
@@ -16,6 +17,8 @@ export default class WonderVR{
     this.camera =new WonderCamera();
     this.scene = new WonderScene();
     this.renderer =  new WonderRenderer();
+
+
 
     var scope = this;
 
@@ -32,6 +35,9 @@ export default class WonderVR{
     selectionBox.visible = false;
 
       var transformControls = new THREE.TransformControls( this.camera,  this.renderer.domElement );
+      this.transformControls = transformControls;
+      this.scene.add(transformControls);
+
       transformControls.addEventListener( 'change',  () =>{
 
         var object = transformControls.object;
@@ -71,21 +77,17 @@ export default class WonderVR{
       var renderer = this.renderer;
       var scene = this.scene;
       var camera = this.camera;
-var raycaster = new THREE.Raycaster();
-var mouse = new THREE.Vector2();
+      var raycaster = new THREE.Raycaster();
+      var mouse = new THREE.Vector2();
 
-renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
+      renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
 
 
-        function getIntersects( point, objects ) {
-
-          mouse.set( ( point.x * 2 ) - 1, - ( point.y * 2 ) + 1 );
-
-          raycaster.setFromCamera( mouse, camera );
-
-          return raycaster.intersectObjects( objects ,true);
-
-        };
+      function getIntersects( point, objects ) {
+        mouse.set( ( point.x * 2 ) - 1, - ( point.y * 2 ) + 1 );
+        raycaster.setFromCamera( mouse, camera );
+        return raycaster.intersectObjects( objects ,true);
+      };
 
       function onMouseDown( event ) {
         event.preventDefault();
@@ -102,40 +104,28 @@ renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
       };
 
       function handleClick() {
-
       		if ( onDownPosition.distanceTo( onUpPosition ) == 0 ) {
-
       			var intersects = getIntersects( onUpPosition, scene.children );
       			if ( intersects.length > 0 ) {
-
       				var object = intersects[ 0 ].object;
-
       				if ( object.userData.object !== undefined ) {
-
       					// helper
-
       					select( object.userData.object );
-
       				} else {
-
       					select( object );
-
       				}
-
       			} else {
-
       				select( null );
-
       			}
-
-      			scope.render();
-
       		}
       	};
 
         function select(object){
           var bbHelper = new THREE.BoundingBoxHelper( object, 0xffffff );
           bbHelper.visible = false;
+
+          scope.transformControls.detach();
+
           scene.add( bbHelper );
           bbHelper.update();
 
@@ -144,6 +134,8 @@ renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
           (<any>boxHelper).material.color.set( 0xff9000 );
           scene.add( boxHelper );
 
+
+          scope.transformControls.attach(object);
         }
   }
 
@@ -165,7 +157,7 @@ renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
         var delta = clock.getDelta();
 
         //this.cameraControls.update( delta );
-
+        //this.transformControls.update();
         requestAnimationFrame( render );
         this.update(delta);
         this.render();
