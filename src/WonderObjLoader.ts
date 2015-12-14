@@ -14,7 +14,6 @@ export default class WonderObjLoader{
       console.log( item, loaded, total );
     };
 
-    var texture = new (<any>THREE).Texture();
     var onProgress = function ( xhr ) {
       if ( xhr.lengthComputable ) {
         var percentComplete = xhr.loaded / xhr.total * 100;
@@ -25,25 +24,36 @@ export default class WonderObjLoader{
     var onError = function ( xhr ) {
       console.log('load error: ',loadInfo);
     };
-    var imageLoader = new THREE.ImageLoader( manager );
-    imageLoader.load( loadInfo.uvUrl, function ( image ) {
-      texture.image = image;
-      texture.needsUpdate = true;
-    });
 
-    var objLoader = new (<any>THREE).OBJLoader( manager );
-    objLoader.load( loadInfo.objUrl, function ( object ) {
-      object.traverse( function ( child ) {
-        if(child instanceof THREE.Mesh){
-          child.material.map = texture;
-        }
+    if(loadInfo.uvUrl && loadInfo.objUrl){
+      var texture = new (<any>THREE).Texture();
+      var imageLoader = new THREE.ImageLoader( manager );
+      imageLoader.load( loadInfo.uvUrl, function ( image ) {
+        texture.image = image;
+        texture.needsUpdate = true;
       });
-      object.position.x = 0;
-      object.position.y = 0;
-      object.position.z = 0;
-      object.name = 'WonderObjLoaderObject';
-      callback(object);
+      var objLoader = new (<any>THREE).OBJLoader( manager );
+      objLoader.load( loadInfo.objUrl, function ( object ) {
+        object.traverse( function ( child ) {
+          if(child instanceof THREE.Mesh){
+            child.material.map = texture;
+          }
+        });
+        object.position.set(0,0,0);
+        object.name = 'WonderObjLoaderObject';
+        callback(object);
 
-    }, onProgress, onError );
+      }, onProgress, onError );
+    }else if(loadInfo.mtlUrl && loadInfo.objUrl){
+      var objLoader = new (<any>THREE).OBJMTLLoader();
+      objLoader.load( loadInfo.objUrl, loadInfo.mtlUrl, function ( object ) {
+        object.position.set(0,0,0);
+        object.name = 'WonderObjLoaderObject';
+					callback( object );
+			}, onProgress, onError );
+    }
+
+
+
   }
 }

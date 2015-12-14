@@ -42,12 +42,21 @@ export default class WonderScene extends THREE.Scene{
       //this.add( new RotatingCube(1*1000,0x00ff00) );
 
       var objLoader = new WonderObjLoader();
+
+
       objLoader.load({
-        objUrl:'./resource/cabinet/cabinet.obj',
-        uvUrl:'resource/textures/UV_Grid_Sm.jpg'
+        objUrl:'./resource/desk/desk.obj',
+        mtlUrl:'./resource/desk/desk.mtl'
       },(obj)=>{
         this.add(obj);
       });
+
+      // objLoader.load({
+      //   objUrl:'./resource/cabinet/cabinet.obj',
+      //   mtlUrl:'./resource/cabinet/cabinet.mtl'
+      // },(obj)=>{
+      //   this.add(obj);
+      // });
 
   }
 
