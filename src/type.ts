@@ -1,4 +1,4 @@
-export interface IDynamic {
+export interface IDynamic extends THREE.Object3D{
   update(delta?:number);
 }
 

@@ -1,5 +1,5 @@
 import RotatingCube from './RotatingCube';
-
+import * as type from './type';
 import WonderObjLoader from './WonderObjLoader';
 var a = {
   a:1
@@ -66,14 +66,19 @@ export default class WonderScene extends THREE.Scene{
     super.add(object);
   };
 
+  dynamic:type.IDynamic[] = [];
+  addDynamic(object:  type.IDynamic):void{
+    this.dynamic.push(object);
+    this.add(object);
+  }
+
+
 
 
   update(delta:number){
-    for(var i in this.children){
-      var obj:any = this.children[i];
-      if(typeof obj.update == 'function'){
-        obj.update(delta);
-      }
+    for(var i in this.dynamic){
+      var obj = this.dynamic[i];
+      obj.update();
     }
   }
 }

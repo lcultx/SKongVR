@@ -106,7 +106,6 @@ renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
       		if ( onDownPosition.distanceTo( onUpPosition ) == 0 ) {
 
       			var intersects = getIntersects( onUpPosition, scene.children );
-            console.log(intersects);
       			if ( intersects.length > 0 ) {
 
       				var object = intersects[ 0 ].object;
@@ -135,14 +134,23 @@ renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
       	};
 
         function select(object){
-          console.log(object);
+          var bbHelper = new THREE.BoundingBoxHelper( object, 0xffffff );
+          bbHelper.visible = false;
+          scene.add( bbHelper );
+          bbHelper.update();
+
+          // box helper - doesn't have diagonals
+          var boxHelper = new THREE.BoxHelper( bbHelper ); // to remove the diagonals
+          (<any>boxHelper).material.color.set( 0xff9000 );
+          scene.add( boxHelper );
+
         }
   }
 
 
   update(delta){
     this.scene.update(delta);
-    
+
   }
   render(){
 
