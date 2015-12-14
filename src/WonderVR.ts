@@ -142,6 +142,7 @@ renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
 
   update(delta){
     this.scene.update(delta);
+    
   }
   render(){
 

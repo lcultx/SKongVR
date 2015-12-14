@@ -1,5 +1,10 @@
 import RotatingCube from './RotatingCube';
 import Desk from './Desk';
+import WonderObjLoader from './WonderObjLoader';
+var a = {
+  a:1
+}
+
 export default class WonderScene extends THREE.Scene{
   constructor(){
     super();
@@ -22,6 +27,7 @@ export default class WonderScene extends THREE.Scene{
 
       var gt = THREE.ImageUtils.loadTexture( "./resource/textures/terrain/1.jpg" );
       var gg = new THREE.PlaneBufferGeometry( 16000, 16000 );
+
       var gm = new THREE.MeshPhongMaterial( { color: 0xffffff, map: gt } );
       var ground = new THREE.Mesh( gg, gm );
       ground.rotation.x = - Math.PI / 2;
@@ -35,10 +41,13 @@ export default class WonderScene extends THREE.Scene{
 
       //this.add( new RotatingCube(1*1000,0x00ff00) );
 
-      new Desk().load((desk:Desk)=>{
-        this.add(desk);
+      var objLoader = new WonderObjLoader();
+      objLoader.load({
+        objUrl:'./resource/cabinet/cabinet.obj',
+        uvUrl:'resource/textures/UV_Grid_Sm.jpg'
+      },(obj)=>{
+        this.add(obj);
       });
-
 
   }
 
