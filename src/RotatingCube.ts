@@ -1,4 +1,4 @@
-import * as Type from './Type';
+import * as Type from './type';
 export default class RotatingCube extends THREE.Mesh implements Type.IDynamic{
 
   constructor(size,color){

@@ -1,9 +1,11 @@
 import RotatingCube from './RotatingCube';
-import Desk from './Desk';
+
 import WonderObjLoader from './WonderObjLoader';
 var a = {
   a:1
 }
+
+
 
 export default class WonderScene extends THREE.Scene{
   constructor(){
