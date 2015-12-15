@@ -24,6 +24,7 @@ export default class WonderVR{
 
 
   update(delta){
+    this.operator.update(delta);
     this.scene.update(delta);
 
   }
@@ -39,7 +40,7 @@ export default class WonderVR{
       var render =  ()=> {
         var delta = clock.getDelta();
 
-        //this.cameraControls.update( delta );
+      
         //this.transformControls.update();
         requestAnimationFrame( render );
         this.update(delta);
