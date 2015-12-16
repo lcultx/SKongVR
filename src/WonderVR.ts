@@ -10,7 +10,7 @@ export default class WonderVR{
   renderer:WonderRenderer;
   operator:WonderOperator;
 
-
+  //测试
   constructor(){
 
     ///	scene.fog = new THREE.Fog( 0xffffff, 1000, 4000 );
@@ -40,7 +40,7 @@ export default class WonderVR{
       var render =  ()=> {
         var delta = clock.getDelta();
 
-      
+
         //this.transformControls.update();
         requestAnimationFrame( render );
         this.update(delta);
