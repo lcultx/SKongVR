@@ -10,8 +10,9 @@ var a = {
 export default class WonderScene extends THREE.Scene{
   constructor(){
     super();
+//环境光
     	this.add( new THREE.AmbientLight( 0x222222 ) );
-
+//平行光
       var light = new THREE.DirectionalLight( 0xffffff, 2.25 );
       light.position.set( 200, 450, 500 );
       light.castShadow = true;
@@ -26,13 +27,14 @@ export default class WonderScene extends THREE.Scene{
       light.shadowCameraRight = 1000;
       light.shadowCameraLeft = -1000;
       this.add( light );
-
+//图片工具集
       var gt = THREE.ImageUtils.loadTexture( "./resource/textures/terrain/1.jpg" );
       var gg = new THREE.PlaneBufferGeometry( 16000, 16000 );
 
       var gm = new THREE.MeshPhongMaterial( { color: 0xffffff, map: gt } );
       var ground = new THREE.Mesh( gg, gm );
       ground.rotation.x = - Math.PI / 2;
+      //材质对象material()
       (<any>ground).material.map.repeat.set( 16,16 );
       (<any>ground).material.map.wrapS = THREE.RepeatWrapping;
       (<any>ground).material.map.wrapT = THREE.RepeatWrapping;
@@ -61,7 +63,7 @@ export default class WonderScene extends THREE.Scene{
       // });
 
   }
-
+  //3D对象基类 
   add(object: THREE.Object3D): void{
     super.add(object);
   };
