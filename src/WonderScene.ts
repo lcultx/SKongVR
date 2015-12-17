@@ -47,13 +47,19 @@ export default class WonderScene extends THREE.Scene{
 
       var objLoader = new WonderObjLoader();
 
-
       objLoader.load({
-        objUrl:'./resource/desk/desk.obj',
-        mtlUrl:'./resource/desk/desk.mtl'
+        objUrl:'./resource/obj/vase.obj',
+        mtlUrl:'./resource/obj/vase.mtl'
       },(obj)=>{
         this.add(obj);
       });
+
+      // objLoader.load({
+      //   objUrl:'./resource/desk/desk.obj',
+      //   mtlUrl:'./resource/desk/desk.mtl'
+      // },(obj)=>{
+      //   this.add(obj);
+      // });
 
       // objLoader.load({
       //   objUrl:'./resource/cabinet/cabinet.obj',
@@ -63,7 +69,7 @@ export default class WonderScene extends THREE.Scene{
       // });
 
   }
-  //3D对象基类 
+  //3D对象基类
   add(object: THREE.Object3D): void{
     super.add(object);
   };
