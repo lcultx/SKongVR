@@ -71,7 +71,7 @@ export default class WonderScene extends THREE.Scene{
       // note that because the ground does not cast a shadow, .castShadow is left false
       ground.receiveShadow = true;
       ground.name = 'ground'
-      //this.add( ground );
+      this.add( ground );
 
       // var sofaShaderSphere = new SofaShaderSphere(1000);
       // sofaShaderSphere.position.setY(1500);
@@ -95,47 +95,53 @@ export default class WonderScene extends THREE.Scene{
 
 
 
-      var objLoader = new (<any>THREE).OBJLoader();
-      this.name = 'WonderObjLoaderObject';
-      objLoader.load('resource/sofa/sofa.obj', ( object )=> {
-        var geometry = object.children[0].geometry;
-        console.log(geometry)
-
-        var sofa = new THREE.Mesh(geometry,new THREE.MeshPhongMaterial({
-          //color: 0xffffff,
-          map:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_Mask.jpg" ),
-        //  normalMap:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_N.jpg" )
-        }));
-        sofa.position.set(0,0,0);
-        this.add(sofa);
-
-        var sofa2 = new THREE.Mesh(geometry,new THREE.ShaderMaterial( {
-        	uniforms: uniforms,
-        	vertexShader: vertexShader,
-        	fragmentShader: fragmentShader
-        } ))
-        sofa2.position.set(2000,0,0);
-        this.add(sofa2);
-      });
-
-
-    //  var objLoader = new WonderObjLoader();
-
-      // objLoader.load({
-      //   objUrl:'./resource/obj/vase.obj',
-      //   mtlUrl:'./resource/obj/vase.mtl'
-      // },(obj)=>{
-      //   this.add(obj);
+      // var objLoader = new (<any>THREE).OBJLoader();
+      // this.name = 'WonderObjLoaderObject';
+      // objLoader.load('resource/sofa/sofa.obj', ( object )=> {
+      //   var geometry = object.children[0].geometry;
+      //   console.log(geometry)
+      //
+      //   var sofa = new THREE.Mesh(geometry,new THREE.MeshPhongMaterial({
+      //     //color: 0xffffff,
+      //     map:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_Mask.jpg" ),
+      //   //  normalMap:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_N.jpg" )
+      //   }));
+      //   sofa.position.set(0,0,0);
+      //   this.add(sofa);
+      //
+      //   var sofa2 = new THREE.Mesh(geometry,new THREE.ShaderMaterial( {
+      //   	uniforms: uniforms,
+      //   	vertexShader: vertexShader,
+      //   	fragmentShader: fragmentShader
+      //   } ))
+      //   sofa2.position.set(2000,0,0);
+      //   this.add(sofa2);
       // });
+
+
+     var objLoader = new WonderObjLoader();
+       objLoader.load({
+         objUrl:'./resource/obj/wardrobe.obj',
+         mtlUrl:'./resource/obj/wardrobe.mtl'
+       },(obj)=>{
+         this.add(obj);
+       });
+     //
+    //   objLoader.load({
+    //     objUrl:'./resource/obj/vase.obj',
+    //     mtlUrl:'./resource/obj/vase.mtl'
+    //   },(obj)=>{
+    //     this.add(obj);
+    //   });
 
       //this.addDynamic(new CustomShaderRotatingCube(1*1000,0x00ff00));
 
-      // objLoader.load({
-      //   objUrl:'./resource/desk/desk.obj',
-      //   mtlUrl:'./resource/desk/desk.mtl'
-      // },(obj)=>{
-      //   this.add(obj);
-      // });
+      objLoader.load({
+        objUrl:'./resource/desk/desk.obj',
+        mtlUrl:'./resource/desk/desk.mtl'
+      },(obj)=>{
+        this.add(obj);
+      });
 
       // objLoader.load({
       //   objUrl:'./resource/cabinet/cabinet.obj',
