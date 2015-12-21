@@ -1,12 +1,13 @@
+
 <html>
 	<head>
 		<title>WonderVR</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link href="css/index.css" type="text/css" rel="stylesheet" />
 		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+		body{margin:0;padding:0;font-family:"微软雅黑";}
+		canvas{width:100%;height:100%;}
 		</style>
-	</head>
-	<body>
 		<script src="library/three.js"></script>
 		<script src="library/OrbitControls.js"></script>
 		<script src="library/EditorControls.js"></script>
@@ -18,8 +19,50 @@
 
 		<script src="./node_modules/es6-module-loader/dist/es6-module-loader.src.js"></script>
 		<script src="./node_modules/systemjs/dist/system.src.js"></script>
-    <script>
-			  System.import('./build/src/main');
+		<script>
+		System.import('./build/src/main');
 		</script>
-	</body>
+		<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="js/controlhtml.js"></script>
+	</head>
+	<body>
+		<div class="box-button-left">
+			<ul>
+			<li>家具</li>
+			<li>地板</li>
+			<li>电器</li>
+			<li>门窗</li>
+			<li>其他</li>
+			</ul>
+		</div>
+		<div class="box-button-leftcon">
+			<ul class="json">
+			<li id="aaid1" name="aaname1"><img src="img/a1.jpg"></li>
+			<li id="aaid2" name="aaname2"><img src="img/a2.jpg"></li>
+			<li><img src="img/a3.jpg"></li>
+			<li><img src="img/a1.jpg"></li>
+			<li><img src="img/a2.jpg"></li>
+			<li><img src="img/a3.jpg"></li>
+			<li><img src="img/a1.jpg"></li>
+			<li><img src="img/a2.jpg"></li>
+			<li><img src="img/a3.jpg"></li>
+
+			</ul>
+			<ul class="clo" id="closea">
+			<li>×</li>
+			</ul>
+		</div>
+
+		<div class="box-button-right">
+			<ul>
+			<li>新建</li>
+			<li>修改</li>
+			<li>保存</li>
+			<li>关闭</li>
+			</ul>
+		</div>
+
+
+
+		</body>
 </html>
