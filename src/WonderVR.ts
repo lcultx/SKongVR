@@ -19,7 +19,7 @@ export default class WonderVR{
     this.scene = new WonderScene();
     this.renderer =  new WonderRenderer();
     this.operator = new WonderOperator(this);
-    
+
   }
 
 
