@@ -21,6 +21,7 @@
         "./src/**/*.tsx"
     ],
     "files": [
+        "./typings/null.ts",
         "./typings/threejs/detector.d.ts",
         "./typings/threejs/three-canvasrenderer.d.ts",
         "./typings/threejs/three-copyshader.d.ts",
@@ -33,7 +34,6 @@
         "./typings/threejs/three-projector.d.ts",
         "./typings/threejs/three-renderpass.d.ts",
         "./typings/threejs/three-shaderpass.d.ts",
-        "./typings/threejs/three-tests.ts",
         "./typings/threejs/three-trackballcontrols.d.ts",
         "./typings/threejs/three-transformcontrols.d.ts",
         "./typings/threejs/three-vrcontrols.d.ts",

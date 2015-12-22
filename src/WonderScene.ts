@@ -88,7 +88,8 @@ world.worldscale(1000);
       ground.name = 'ground'
       this.add( ground );
 
-
+        this.drawLine(0,0,10000,10000);
+        this.drawCurve({x:0,y:0},{x:-500,y:-500},{x:-1000,y:1000})
      var objLoader = new WonderObjLoader();
        objLoader.load({
          objUrl:'./resource/obj/wardrobe.obj',
@@ -139,7 +140,38 @@ world.worldscale(1000);
       //   obj.position.set(0,0,0);
       //   this.add(obj);
       // })
+
+
+
+
   }
+
+  drawLine(x1,y1,x2,y2){
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3(x1, 0, y1));
+    geometry.vertices.push(new THREE.Vector3(x2, 0, y2));
+    var material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 500 } );
+    var line = new THREE.Line(geometry, material);
+    console.log(line);
+    this.add(line);
+  }
+
+  drawCurve(p1,p2,p3){
+    var SUBDIVISIONS = 20;
+    var geometry = new THREE.Geometry();
+    var curve = new (<any>THREE).QuadraticBezierCurve3();
+    curve.v0 = new THREE.Vector3(p1.x, 0, p1.y);
+    curve.v1 = new THREE.Vector3(p2.x, 0, p2.y);
+    curve.v2 = new THREE.Vector3(p3.x, 0, p3.y);
+    for (var j = 0; j < SUBDIVISIONS; j++) {
+    geometry.vertices.push( curve.getPoint(j / SUBDIVISIONS) )
+    }
+    var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 20 } );
+    material.linewidth = 200;
+    var line = new THREE.Line(geometry, material);
+    this.add(line);
+  }
+
   //3D对象基类
   add(object: THREE.Object3D): void{
     super.add(object);
