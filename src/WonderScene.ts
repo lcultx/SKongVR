@@ -191,7 +191,7 @@ world.worldscale(1000);
     curve.v1 = new THREE.Vector3(p2.x, 0, p2.y);
     curve.v2 = new THREE.Vector3(p3.x, 0, p3.y);
     for (var j = 0; j < SUBDIVISIONS; j++) {
-    geometry.vertices.push( curve.getPoint(j / SUBDIVISIONS) )
+      geometry.vertices.push( curve.getPoint(j / SUBDIVISIONS) )
     }
     var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 20 } );
     material.linewidth = 200;
@@ -215,18 +215,18 @@ world.worldscale(1000);
      var mtx = new THREE.Matrix4();
 
      var i = this.bodys.length;
- while (i--) {
-   var body = this.bodys[i].body;
-   var mesh = this.meshs[i];
+     while (i--) {
+       var body = this.bodys[i].body;
+       var mesh = this.meshs[i];
 
-    if (!body.sleeping) {
-        var m = body.getMatrix();
-        mtx.fromArray(m);
-        mesh.position.setFromMatrixPosition(mtx);
-        mesh.rotation.setFromRotationMatrix(mtx);
+        if (!body.sleeping) {
+            var m = body.getMatrix();
+            mtx.fromArray(m);
+            mesh.position.setFromMatrixPosition(mtx);
+            mesh.rotation.setFromRotationMatrix(mtx);
 
-    }
- }
+        }
+     }
 
 
 
