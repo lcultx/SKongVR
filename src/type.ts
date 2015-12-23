@@ -1,5 +1,5 @@
 export interface IDynamic extends THREE.Object3D{
-  update(delta?:number);
+  update(delta:number,clock?:THREE.Clock);
 }
 
 export interface AsyncLoadable{
