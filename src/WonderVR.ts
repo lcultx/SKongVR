@@ -3,7 +3,7 @@ import WonderCamera from './WonderCamera';
 import WonderScene from './WonderScene';
 import WonderRenderer from './WonderRenderer';
 import WonderOperator from './WonderOperator';
-
+var gobal:any = window;
 export default class WonderVR{
   camera:WonderCamera;
   scene:WonderScene;
@@ -20,8 +20,12 @@ export default class WonderVR{
     this.renderer =  new WonderRenderer();
     this.operator = new WonderOperator(this);
 
+    (<any>window).wr = this;
   }
 
+  drawRoom(){
+    console.log('画房间');
+  }
 
   update(delta,clock:THREE.Clock){
     this.operator.update(delta);

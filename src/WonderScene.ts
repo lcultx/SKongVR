@@ -90,24 +90,24 @@ world.worldscale(1000);
 
         this.drawLine(0,0,10000,10000);
         this.drawCurve({x:0,y:0},{x:-500,y:-500},{x:-1000,y:1000})
-     var objLoader = new WonderObjLoader();
-       objLoader.load({
-         objUrl:'./resource/obj/wardrobe.obj',
-         mtlUrl:'./resource/obj/wardrobe.mtl'
-       },(obj)=>{
-         obj.position.set(500,500,500);
-         this.add(obj);
-         var box = new THREE.Box3().setFromObject(obj);
-         var sizeVector = box.size();
-         this.bodys.push(new OIMO.Body({
-            type: 'box',
-            size: [sizeVector.x,sizeVector.y,sizeVector.z],
-            pos: [0,500,0],
-            move: true,
-            world: world
-        }));
-        this.meshs.push(obj);
-       });
+    //  var objLoader = new WonderObjLoader();
+    //    objLoader.load({
+    //      objUrl:'./resource/obj/wardrobe.obj',
+    //      mtlUrl:'./resource/obj/wardrobe.mtl'
+    //    },(obj)=>{
+    //      obj.position.set(500,500,500);
+    //      this.add(obj);
+    //      var box = new THREE.Box3().setFromObject(obj);
+    //      var sizeVector = box.size();
+    //      this.bodys.push(new OIMO.Body({
+    //         type: 'box',
+    //         size: [sizeVector.x,sizeVector.y,sizeVector.z],
+    //         pos: [0,500,0],
+    //         move: true,
+    //         world: world
+    //     }));
+    //     this.meshs.push(obj);
+    //    });
 
 
       // objLoader.load({
@@ -156,6 +156,33 @@ world.worldscale(1000);
     this.add(line);
   }
 
+ addObject(obj:{
+   objUrl:string,
+   mtlUrl:string,
+   position:{x:number,y:number,z:number},
+   name:string,
+   id:string
+ }){
+   var objLoader = new WonderObjLoader();
+     objLoader.load({
+       objUrl:obj.objUrl,
+       mtlUrl:obj.mtlUrl,
+     },(obj)=>{
+       obj.position.set(obj.position.x,obj.position.y,obj.position.z);
+       this.add(obj);
+      //  var box = new THREE.Box3().setFromObject(obj);
+      //  var sizeVector = box.size();
+      //  this.bodys.push(new OIMO.Body({
+      //     type: 'box',
+      //     size: [sizeVector.x,sizeVector.y,sizeVector.z],
+      //     pos: [0,500,0],
+      //     move: true,
+      //     world: world
+      // }));
+      //this.meshs.push(obj);
+     });
+
+ }
   drawCurve(p1,p2,p3){
     var SUBDIVISIONS = 20;
     var geometry = new THREE.Geometry();
