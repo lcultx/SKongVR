@@ -55,6 +55,7 @@
         "./src/objects/VaseShaderSphere.ts",
         "./src/SKCamera.ts",
         "./src/SKObjLoader.ts",
+        "./src/SKongUIControl.ts",
         "./src/SKongVR.ts",
         "./src/SKOperator.ts",
         "./src/SKRenderer.ts",

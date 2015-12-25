@@ -52,7 +52,7 @@ export default class SKongVR{
     this.mainUI = new MainUI(this);
     gobal.sk = this;
 
-   this.drawRoom();
+   //this.drawRoom();
   }
 
   //画房间，在二维平面上画出房间结构
