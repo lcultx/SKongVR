@@ -1,5 +1,5 @@
-import WonderVR from'./WonderVR';
-var wonder = new WonderVR();
+import SKongVR from'./SKongVR';
+var wonder = new SKongVR();
 document.body.appendChild(wonder.renderer.domElement );
 wonder.run();
 

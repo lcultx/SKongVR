@@ -1,6 +1,6 @@
-import WonderVR from './WonderVR';
+import SKongVR from './SKongVR';
 export default class MainUI{
-  constructor(wonder:WonderVR){
+  constructor(wonder:SKongVR){
     $(".box-button-leftcon").find("ul.json").find("li").click(function(){
       //console.log(this.id);
         var id=$(this).attr("id");

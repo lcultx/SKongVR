@@ -1,5 +1,5 @@
-import * as Type from './type';
-
+import * as Type from '../type';
+import MultiMaterialObject from './MultiMaterialObject';
 var vertexShader = `
       varying vec2 vUv;
 
@@ -77,12 +77,12 @@ var fragmentShader= `
 			}
 `
 
-export default class CustomShaderRotatingCube extends THREE.Mesh implements Type.IDynamic{
+export default class VaseShaderSphere extends MultiMaterialObject implements Type.IDynamic{
 
   uniforms;
 
-  constructor(size,color){
-    var geometry = new THREE.BoxGeometry( size, size, size );
+  constructor(size){
+    var geometry = new THREE.SphereGeometry(1000,48,48);
 
 
     //var material = new THREE.MeshBasicMaterial( { color: color } );
@@ -92,18 +92,32 @@ export default class CustomShaderRotatingCube extends THREE.Mesh implements Type
         texture: { type: "t", value: THREE.ImageUtils.loadTexture( "resource/textures/terrain/grasslight-big.jpg" ) }
     };
 			this.uniforms.texture.value.wrapS = this.uniforms.texture.value.wrapT = THREE.RepeatWrapping;
+      /*
+      new THREE.ShaderMaterial( {
 
-		var material = new THREE.ShaderMaterial( {
+        uniforms: this.uniforms,
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader
 
-			uniforms: this.uniforms,
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader
+      } )
+      */
 
-		} );
+		var materials =[
 
-    super( geometry, material );
+//    new THREE.MeshLambertMaterial( { color:new THREE.Color(0.911504,0.818866,0.639576).getHex() } ),
+    new THREE.MeshPhongMaterial({
+        color:new THREE.Color(0.911504,0.818866,0.639576).getHex() ,
+				specular: new THREE.Color(1,1,1).getHex(),
+				//shininess: 50,
+				side: THREE.DoubleSide,
+				vertexColors: THREE.VertexColors,
+				shading: THREE.SmoothShading}),
+    //new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1, side: THREE.DoubleSide } )
+  ];
 
-        this.position.setY(size/2);
+    super( geometry, materials );
+
+
   }
   update(delta:number,clock:THREE.Clock){
 
@@ -111,6 +125,6 @@ export default class CustomShaderRotatingCube extends THREE.Mesh implements Type
     //this.uniforms.time.value = clock.elapsedTime;
     //
     //this.rotation.x += 0.1;
-    //this.rotation.y += 0.7;
+    this.rotation.z += 0.01;
   };
 }
