@@ -669,7 +669,7 @@ declare module THREE {
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferGeometry.js">src/core/BufferGeometry.js</a>
      */
-    export class BufferGeometry {
+    export class BufferGeometry extends Eventable implements IEventable{
         /**
          * This creates a new BufferGeometry. It also sets several properties to an default value.
          */
@@ -773,11 +773,6 @@ declare module THREE {
         dispose(): void;
 
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     export class Channels {
@@ -854,7 +849,7 @@ declare module THREE {
     /**
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/DirectGeometry.js">src/core/DirectGeometry.js</a>
      */
-    export class DirectGeometry {
+    export class DirectGeometry extends Eventable implements IEventable{
         constructor();
 
         id: number;
@@ -885,11 +880,6 @@ declare module THREE {
         fromGeometry(geometry: Geometry): DirectGeometry;
         dispose(): void;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     /**
@@ -917,38 +907,13 @@ declare module THREE {
      *
      * @source src/core/EventDispatcher.js
      */
-    export class EventDispatcher implements IEventable {
+    export class EventDispatcher extends Eventable implements IEventable {
         /**
          * Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
          */
         constructor();
 
-        /**
-         * Adds a listener to an event type.
-         * @param type The type of the listener that gets removed.
-         * @param listener The listener function that gets removed.
-         */
-        addEventListener(type: string, listener: (event: any) => void ): void;
 
-        /**
-         * Adds a listener to an event type.
-         * @param type The type of the listener that gets removed.
-         * @param listener The listener function that gets removed.
-         */
-        hasEventListener(type: string, listener: (event: any) => void): void;
-
-        /**
-         * Removes a listener from an event type.
-         * @param type The type of the listener that gets removed.
-         * @param listener The listener function that gets removed.
-         */
-        removeEventListener(type: string, listener: (event: any) => void): void;
-
-        /**
-         * Fire an event type.
-         * @param type The type of event that gets fired.
-         */
-        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     /**
@@ -1055,7 +1020,7 @@ declare module THREE {
      *
      * @see https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js
      */
-    export class Geometry {
+    export class Geometry extends Eventable implements IEventable{
         constructor();
 
         /**
@@ -1261,11 +1226,6 @@ declare module THREE {
         animation: AnimationClip;
         animations: AnimationClip[];
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     /**
@@ -1351,19 +1311,22 @@ declare module THREE {
         setXYZW(index: number, x: number, y: number, z: number, w: number): InterleavedBufferAttribute;
     }
 
-
-    export interface IEventable{
-      // EventDispatcher mixins
+    class Eventable{
       addEventListener(type: string, listener: (event: any) => void ): void;
       hasEventListener(type: string, listener: (event: any) => void): void;
       removeEventListener(type: string, listener: (event: any) => void): void;
-      dispatchEvent(event: { type: string; target: any; }): void;
+      dispatchEvent(event: { type: string; data?:any}): void;
+    }
+
+    export interface IEventable extends Eventable{
+      // EventDispatcher mixins
+
     }
 
     /**
      * Base class for scene graph objects
      */
-    export class Object3D implements IEventable{
+    export class Object3D extends Eventable implements IEventable{
         constructor();
 
         /**
@@ -1643,11 +1606,6 @@ declare module THREE {
          */
         copy(source: Object3D, recursive?: boolean): Object3D;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     export interface Intersection {
@@ -2127,7 +2085,7 @@ declare module THREE {
     /**
      * Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
      */
-    export class Material {
+    export class Material extends Eventable implements IEventable{
         constructor();
 
         /**
@@ -2245,11 +2203,7 @@ declare module THREE {
         update(): void;
         dispose(): void;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+
     }
 
     export interface LineBasicMaterialParameters extends MaterialParameters {
@@ -4741,7 +4695,7 @@ declare module THREE {
         stencilBuffer?: boolean; // true;
     }
 
-    export class WebGLRenderTarget implements RenderTarget {
+    export class WebGLRenderTarget extends Eventable implements IEventable,RenderTarget {
         constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
 
         uuid: string;
@@ -4767,11 +4721,6 @@ declare module THREE {
         dispose(): void;
 
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
     }
 
     export class WebGLRenderTargetCube extends WebGLRenderTarget {
@@ -5228,7 +5177,7 @@ declare module THREE {
         generateMipmaps: boolean;
     }
 
-    export class Texture {
+    export class Texture extends Eventable implements IEventable{
         constructor(
             image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
@@ -5273,11 +5222,7 @@ declare module THREE {
         dispose(): void;
         transformUv( uv: Vector ): void;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+
     }
 
     class VideoTexture extends Texture {
