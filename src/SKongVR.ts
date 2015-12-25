@@ -2,8 +2,10 @@ import WonderCamera from './SKCamera';
 import WonderScene from './SKScene';
 import WonderRenderer from './SKRenderer';
 import WonderOperator from './SKOperator';
+import MainUI from './MainUI';
 var gobal:any = window;
 declare var sk:SKongVR;
+
 export default class SKongVR{
   camera:WonderCamera;
   scene:WonderScene;
@@ -12,6 +14,8 @@ export default class SKongVR{
 
   orthoCamera:THREE.OrthographicCamera;
   perspCamera:THREE.PerspectiveCamera;
+
+  public mainUI:MainUI;
 
   private _isCanvas2DDrawing:boolean;
   //测试
@@ -45,6 +49,7 @@ export default class SKongVR{
     this.renderer =  new WonderRenderer();
     this.operator = new WonderOperator(this);
 
+    this.mainUI = new MainUI(this);
     gobal.sk = this;
 
    this.drawRoom();

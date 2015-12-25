@@ -21,6 +21,7 @@
         "./src/**/*.tsx"
     ],
     "files": [
+        "./typings/jquery/jquery.d.ts",
         "./typings/null.ts",
         "./typings/threejs/detector.d.ts",
         "./typings/threejs/three-canvasrenderer.d.ts",
