@@ -45,6 +45,7 @@
         "./src/event/click.ts",
         "./src/event/drag.ts",
         "./src/main.ts",
+        "./src/MainUI.ts",
         "./src/objects/CustomShaderRotatingCube.ts",
         "./src/objects/MultiMaterialObject.ts",
         "./src/objects/RotatingCube.ts",
