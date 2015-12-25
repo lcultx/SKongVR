@@ -1,4 +1,4 @@
-import * as Type from './type';
+import * as Type from '../type';
 
 var vertexShader = `
       varying vec2 vUv;
@@ -77,12 +77,12 @@ var fragmentShader= `
 			}
 `
 
-export default class SofaShaderSphere extends THREE.Mesh implements Type.IDynamic{
+export default class CustomShaderRotatingCube extends THREE.Mesh implements Type.IDynamic{
 
   uniforms;
 
-  constructor(size){
-    var geometry = new THREE.SphereGeometry(1000,48,48);
+  constructor(size,color){
+    var geometry = new THREE.BoxGeometry( size, size, size );
 
 
     //var material = new THREE.MeshBasicMaterial( { color: color } );
@@ -91,23 +91,19 @@ export default class SofaShaderSphere extends THREE.Mesh implements Type.IDynami
         resolution: { type: "v2", value: new THREE.Vector2() },
         texture: { type: "t", value: THREE.ImageUtils.loadTexture( "resource/textures/terrain/grasslight-big.jpg" ) }
     };
-		this.uniforms.texture.value.wrapS = this.uniforms.texture.value.wrapT = THREE.RepeatWrapping;
+			this.uniforms.texture.value.wrapS = this.uniforms.texture.value.wrapT = THREE.RepeatWrapping;
 
-		// var material = new THREE.ShaderMaterial( {
-		// 	uniforms: this.uniforms,
-		// 	vertexShader: vertexShader,
-		// 	fragmentShader: fragmentShader
-		// } );
+		var material = new THREE.ShaderMaterial( {
 
+			uniforms: this.uniforms,
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader
 
-    var material = new THREE.MeshPhongMaterial({
-      color: 0xffffff,
-      map:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_Mask.jpg" ),
-      normalMap:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_N.jpg" )
-    })
+		} );
 
     super( geometry, material );
 
+        this.position.setY(size/2);
   }
   update(delta:number,clock:THREE.Clock){
 
@@ -115,6 +111,6 @@ export default class SofaShaderSphere extends THREE.Mesh implements Type.IDynami
     //this.uniforms.time.value = clock.elapsedTime;
     //
     //this.rotation.x += 0.1;
-    this.rotation.z += 0.01;
+    //this.rotation.y += 0.7;
   };
 }

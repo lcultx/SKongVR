@@ -1,16 +1,11 @@
-import RotatingCube from './RotatingCube';
-import CustomShaderRotatingCube from './CustomShaderRotatingCube';
-import SofaShaderSphere from './SofaShaderSphere';
-import VaseShaderSphere from './VaseShaderSphere';
-import MultiMaterialObject from './MultiMaterialObject';
-import Sofa from './Sofa';
+
 import * as type from './type';
-import WonderObjLoader from './WonderObjLoader';
+import WonderObjLoader from './SKObjLoader';
 
 
 declare var OIMO;
 
-export default class WonderScene extends THREE.Scene{
+export default class SKScene extends THREE.Scene{
 
 
   private oimoWorld;
@@ -88,25 +83,26 @@ world.worldscale(1000);
       ground.name = 'ground'
       this.add( ground );
 
-
-     var objLoader = new WonderObjLoader();
-       objLoader.load({
-         objUrl:'./resource/obj/wardrobe.obj',
-         mtlUrl:'./resource/obj/wardrobe.mtl'
-       },(obj)=>{
-         obj.position.set(500,500,500);
-         this.add(obj);
-         var box = new THREE.Box3().setFromObject(obj);
-         var sizeVector = box.size();
-         this.bodys.push(new OIMO.Body({
-            type: 'box',
-            size: [sizeVector.x,sizeVector.y,sizeVector.z],
-            pos: [0,500,0],
-            move: true,
-            world: world
-        }));
-        this.meshs.push(obj);
-       });
+        this.drawLine(0,0,10000,10000);
+        this.drawCurve({x:0,y:0},{x:-500,y:-500},{x:-1000,y:1000})
+    //  var objLoader = new WonderObjLoader();
+    //    objLoader.load({
+    //      objUrl:'./resource/obj/wardrobe.obj',
+    //      mtlUrl:'./resource/obj/wardrobe.mtl'
+    //    },(obj)=>{
+    //      obj.position.set(500,500,500);
+    //      this.add(obj);
+    //      var box = new THREE.Box3().setFromObject(obj);
+    //      var sizeVector = box.size();
+    //      this.bodys.push(new OIMO.Body({
+    //         type: 'box',
+    //         size: [sizeVector.x,sizeVector.y,sizeVector.z],
+    //         pos: [0,500,0],
+    //         move: true,
+    //         world: world
+    //     }));
+    //     this.meshs.push(obj);
+    //    });
 
 
       // objLoader.load({
@@ -139,7 +135,65 @@ world.worldscale(1000);
       //   obj.position.set(0,0,0);
       //   this.add(obj);
       // })
+
+
+
+
   }
+
+  drawLine(x1,y1,x2,y2){
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3(x1, 0, y1));
+    geometry.vertices.push(new THREE.Vector3(x2, 0, y2));
+    var material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 500 } );
+    var line = new THREE.Line(geometry, material);
+    console.log(line);
+    this.add(line);
+  }
+
+ addObject(obj:{
+   objUrl:string,
+   mtlUrl:string,
+   position:{x:number,y:number,z:number},
+   name:string,
+   id:string
+ }){
+   var objLoader = new WonderObjLoader();
+     objLoader.load({
+       objUrl:obj.objUrl,
+       mtlUrl:obj.mtlUrl,
+     },(obj)=>{
+       obj.position.set(obj.position.x,obj.position.y,obj.position.z);
+       this.add(obj);
+      //  var box = new THREE.Box3().setFromObject(obj);
+      //  var sizeVector = box.size();
+      //  this.bodys.push(new OIMO.Body({
+      //     type: 'box',
+      //     size: [sizeVector.x,sizeVector.y,sizeVector.z],
+      //     pos: [0,500,0],
+      //     move: true,
+      //     world: world
+      // }));
+      //this.meshs.push(obj);
+     });
+
+ }
+  drawCurve(p1,p2,p3){
+    var SUBDIVISIONS = 20;
+    var geometry = new THREE.Geometry();
+    var curve = new (<any>THREE).QuadraticBezierCurve3();
+    curve.v0 = new THREE.Vector3(p1.x, 0, p1.y);
+    curve.v1 = new THREE.Vector3(p2.x, 0, p2.y);
+    curve.v2 = new THREE.Vector3(p3.x, 0, p3.y);
+    for (var j = 0; j < SUBDIVISIONS; j++) {
+      geometry.vertices.push( curve.getPoint(j / SUBDIVISIONS) )
+    }
+    var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 20 } );
+    material.linewidth = 200;
+    var line = new THREE.Line(geometry, material);
+    this.add(line);
+  }
+
   //3D对象基类
   add(object: THREE.Object3D): void{
     super.add(object);
@@ -156,18 +210,18 @@ world.worldscale(1000);
      var mtx = new THREE.Matrix4();
 
      var i = this.bodys.length;
- while (i--) {
-   var body = this.bodys[i].body;
-   var mesh = this.meshs[i];
+     while (i--) {
+       var body = this.bodys[i].body;
+       var mesh = this.meshs[i];
 
-    if (!body.sleeping) {
-        var m = body.getMatrix();
-        mtx.fromArray(m);
-        mesh.position.setFromMatrixPosition(mtx);
-        mesh.rotation.setFromRotationMatrix(mtx);
+        if (!body.sleeping) {
+            var m = body.getMatrix();
+            mtx.fromArray(m);
+            mesh.position.setFromMatrixPosition(mtx);
+            mesh.rotation.setFromRotationMatrix(mtx);
 
-    }
- }
+        }
+     }
 
 
 

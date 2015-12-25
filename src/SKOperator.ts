@@ -1,7 +1,7 @@
-import WonderVR from './WonderVR';
+import SKongVR from './SkongVR';
 
 
-export default class WonderOperator {
+export default class SKOperator {
     cameraControls: THREE.OrbitControls;
     transformControls: THREE.TransformControls;
 
@@ -11,7 +11,7 @@ export default class WonderOperator {
     raycaster: THREE.Raycaster;
 
     selectionBox: THREE.BoxHelper;
-    constructor(private wonder: WonderVR) {
+    constructor(private wonder: SKongVR) {
         this.cameraControls = new THREE.OrbitControls( wonder.camera, wonder.renderer.domElement );
 
         // var controls = new THREE.EditorControls(wonder.camera, wonder.renderer.domElement);
@@ -160,7 +160,6 @@ export default class WonderOperator {
                   //     this.select(object);
                   // }
                 }
-
             } else {
                 this.select(null);
             }

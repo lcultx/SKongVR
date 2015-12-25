@@ -374,6 +374,7 @@ declare module THREE {
 
     // Cameras ////////////////////////////////////////////////////////////////////////////////////////
 
+
     /**
      * Abstract base class for cameras. This class should always be inherited when you build a new camera.
      */
@@ -916,7 +917,7 @@ declare module THREE {
      *
      * @source src/core/EventDispatcher.js
      */
-    export class EventDispatcher {
+    export class EventDispatcher implements IEventable {
         /**
          * Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
          */
@@ -1350,10 +1351,19 @@ declare module THREE {
         setXYZW(index: number, x: number, y: number, z: number, w: number): InterleavedBufferAttribute;
     }
 
+
+    export interface IEventable{
+      // EventDispatcher mixins
+      addEventListener(type: string, listener: (event: any) => void ): void;
+      hasEventListener(type: string, listener: (event: any) => void): void;
+      removeEventListener(type: string, listener: (event: any) => void): void;
+      dispatchEvent(event: { type: string; target: any; }): void;
+    }
+
     /**
      * Base class for scene graph objects
      */
-    export class Object3D {
+    export class Object3D implements IEventable{
         constructor();
 
         /**
@@ -1638,7 +1648,6 @@ declare module THREE {
         hasEventListener(type: string, listener: (event: any) => void): void;
         removeEventListener(type: string, listener: (event: any) => void): void;
         dispatchEvent(event: { type: string; target: any; }): void;
-
     }
 
     export interface Intersection {

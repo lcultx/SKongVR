@@ -1,5 +1,5 @@
-import * as Type from './type';
-import MultiMaterialObject from './MultiMaterialObject';
+import * as Type from '../type';
+
 var vertexShader = `
       varying vec2 vUv;
 
@@ -77,7 +77,7 @@ var fragmentShader= `
 			}
 `
 
-export default class VaseShaderSphere extends MultiMaterialObject implements Type.IDynamic{
+export default class SofaShaderSphere extends THREE.Mesh implements Type.IDynamic{
 
   uniforms;
 
@@ -91,32 +91,22 @@ export default class VaseShaderSphere extends MultiMaterialObject implements Typ
         resolution: { type: "v2", value: new THREE.Vector2() },
         texture: { type: "t", value: THREE.ImageUtils.loadTexture( "resource/textures/terrain/grasslight-big.jpg" ) }
     };
-			this.uniforms.texture.value.wrapS = this.uniforms.texture.value.wrapT = THREE.RepeatWrapping;
-      /*
-      new THREE.ShaderMaterial( {
+		this.uniforms.texture.value.wrapS = this.uniforms.texture.value.wrapT = THREE.RepeatWrapping;
 
-        uniforms: this.uniforms,
-        vertexShader: vertexShader,
-        fragmentShader: fragmentShader
+		// var material = new THREE.ShaderMaterial( {
+		// 	uniforms: this.uniforms,
+		// 	vertexShader: vertexShader,
+		// 	fragmentShader: fragmentShader
+		// } );
 
-      } )
-      */
 
-		var materials =[
+    var material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      map:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_Mask.jpg" ),
+      normalMap:THREE.ImageUtils.loadTexture( "resource/textures/T_Couch_N.jpg" )
+    })
 
-//    new THREE.MeshLambertMaterial( { color:new THREE.Color(0.911504,0.818866,0.639576).getHex() } ),
-    new THREE.MeshPhongMaterial({
-        color:new THREE.Color(0.911504,0.818866,0.639576).getHex() ,
-				specular: new THREE.Color(1,1,1).getHex(),
-				//shininess: 50,
-				side: THREE.DoubleSide,
-				vertexColors: THREE.VertexColors,
-				shading: THREE.SmoothShading}),
-    //new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1, side: THREE.DoubleSide } )
-  ];
-
-    super( geometry, materials );
-
+    super( geometry, material );
 
   }
   update(delta:number,clock:THREE.Clock){
