@@ -1,4 +1,4 @@
-export default class WonderObjLoader{
+export default class SKObjLoader{
   constructor(){
 
   }

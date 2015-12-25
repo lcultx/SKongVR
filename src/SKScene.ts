@@ -1,16 +1,11 @@
-import RotatingCube from './RotatingCube';
-import CustomShaderRotatingCube from './CustomShaderRotatingCube';
-import SofaShaderSphere from './SofaShaderSphere';
-import VaseShaderSphere from './VaseShaderSphere';
-import MultiMaterialObject from './MultiMaterialObject';
-import Sofa from './Sofa';
+
 import * as type from './type';
-import WonderObjLoader from './WonderObjLoader';
+import WonderObjLoader from './SKObjLoader';
 
 
 declare var OIMO;
 
-export default class WonderScene extends THREE.Scene{
+export default class SKScene extends THREE.Scene{
 
 
   private oimoWorld;

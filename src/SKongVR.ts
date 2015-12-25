@@ -1,11 +1,10 @@
-//WonderVR默认单位 mm
-import WonderCamera from './WonderCamera';
-import WonderScene from './WonderScene';
-import WonderRenderer from './WonderRenderer';
-import WonderOperator from './WonderOperator';
+import WonderCamera from './SKCamera';
+import WonderScene from './SKScene';
+import WonderRenderer from './SKRenderer';
+import WonderOperator from './SKOperator';
 var gobal:any = window;
-declare var wonder:WonderVR;
-export default class WonderVR{
+declare var sk:SKongVR;
+export default class SKongVR{
   camera:WonderCamera;
   scene:WonderScene;
   renderer:WonderRenderer;
@@ -46,7 +45,7 @@ export default class WonderVR{
     this.renderer =  new WonderRenderer();
     this.operator = new WonderOperator(this);
 
-  //  gobal.wonder = this;
+    gobal.sk = this;
 
    this.drawRoom();
   }
