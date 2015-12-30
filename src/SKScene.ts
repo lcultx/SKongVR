@@ -4,7 +4,9 @@ import WonderObjLoader from './SKObjLoader';
 import MouseEventHandler from './event/MouseEventHandler';
 import SKongVR from './SKongVR';
 declare var OIMO;
-
+import Polygon from './logo/Polygon';
+import Star from './logo/Star';
+import Spiral from './logo/Spiral';
 export default class SKScene extends THREE.Scene{
 
 
@@ -92,6 +94,9 @@ world.worldscale(1000);
 
 
 
+        this.add(new Polygon(5));
+        this.add(new Star(5));
+        this.add(new Spiral(5,4*Math.PI/5,9/10));
 
 
   }
