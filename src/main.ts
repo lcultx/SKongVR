@@ -1,8 +1,7 @@
 import SKongVR from'./SKongVR';
-var wonder = new SKongVR();
-document.body.appendChild(wonder.renderer.domElement );
-wonder.run();
-
+var sk = new SKongVR();
+document.body.appendChild(sk.renderer.domElement );
+sk.run();
 
 
   // wonder.scene.addObject({

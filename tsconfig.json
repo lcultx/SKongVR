@@ -15,11 +15,17 @@
         "jsx": "react",
         "outDir": "./build"
     },
+    "buildOnSave": false,
+    "compileOnSave": true,
     "filesGlob": [
         "./typings/**/*.ts",
         "./src/**/*.ts",
         "./src/**/*.tsx"
     ],
+    "exclude": [],
+    "atom": {
+        "rewriteTsconfig": true
+    },
     "files": [
         "./typings/jquery/jquery.d.ts",
         "./typings/null.ts",
@@ -43,7 +49,6 @@
         "./typings/tsd.d.ts",
         "./typings/tween.js/tween.js.d.ts",
         "./src/event/ClickHandler.ts",
-        "./src/event/MouseEvent.ts",
         "./src/event/MouseEventHandler.ts",
         "./src/event/SKMouseEvent.ts",
         "./src/main.ts",
@@ -63,9 +68,5 @@
         "./src/SKRenderer.ts",
         "./src/SKScene.ts",
         "./src/type.ts"
-    ],
-    "exclude": [],
-    "atom": {
-        "rewriteTsconfig": true
-    }
+    ]
 }

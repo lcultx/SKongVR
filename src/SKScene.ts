@@ -1,8 +1,8 @@
 
 import * as type from './type';
 import WonderObjLoader from './SKObjLoader';
-
-
+import MouseEventHandler from './event/MouseEventHandler';
+import SKongVR from './SKongVR';
 declare var OIMO;
 
 export default class SKScene extends THREE.Scene{
@@ -12,10 +12,13 @@ export default class SKScene extends THREE.Scene{
 
   private bodys = [];
   private meshs = [];
-  constructor(){
+
+  mouseEventHandler: MouseEventHandler;
+  ground:THREE.Mesh;
+  constructor(private sk:SKongVR){
     super();
 
-
+    this.mouseEventHandler = new MouseEventHandler(sk);
 
     var timestep = 1/60;
 
@@ -82,70 +85,76 @@ world.worldscale(1000);
       ground.receiveShadow = true;
       ground.name = 'ground'
       this.add( ground );
+      this.ground = ground;
 
         this.drawLine(0,0,10000,10000);
         this.drawCurve({x:0,y:0},{x:-500,y:-500},{x:-1000,y:1000})
-    //  var objLoader = new WonderObjLoader();
-    //    objLoader.load({
-    //      objUrl:'./resource/obj/wardrobe.obj',
-    //      mtlUrl:'./resource/obj/wardrobe.mtl'
-    //    },(obj)=>{
-    //      obj.position.set(500,500,500);
-    //      this.add(obj);
-    //      var box = new THREE.Box3().setFromObject(obj);
-    //      var sizeVector = box.size();
-    //      this.bodys.push(new OIMO.Body({
-    //         type: 'box',
-    //         size: [sizeVector.x,sizeVector.y,sizeVector.z],
-    //         pos: [0,500,0],
-    //         move: true,
-    //         world: world
-    //     }));
-    //     this.meshs.push(obj);
-    //    });
 
-
-      // objLoader.load({
-      //   objUrl:'./resource/obj/vase.obj',
-      //   mtlUrl:'./resource/obj/vase.mtl'
-      // },(obj)=>{
-      //   this.add(obj);
-      // });
-
-      //this.addDynamic(new CustomShaderRotatingCube(1*1000,0x00ff00));
-
-      // objLoader.load({
-      //   objUrl:'./resource/desk/desk.obj',
-      //   mtlUrl:'./resource/desk/desk.mtl'
-      // },(obj)=>{
-      //   this.add(obj);
-      // });
-
-      // objLoader.load({
-      //   objUrl:'./resource/cabinet/cabinet.obj',
-      //   mtlUrl:'./resource/cabinet/cabinet.mtl'
-      // },(obj)=>{
-      //   this.add(obj);
-      // });
-      // var jsonLoader = new THREE.JSONLoader();
-      // jsonLoader.load('resource/obj/test.json',(geometry: THREE.Geometry, materials: THREE.Material[])=>{
-      //   console.log(geometry,materials);
-      //
-      //   var obj = new MultiMaterialObject(geometry,materials);
-      //   obj.position.set(0,0,0);
-      //   this.add(obj);
-      // })
 
 
 
 
   }
 
+  initDrawStage(){
+    var page = this.ground;
+
+    var pointIndex = 0;
+
+    var isDrawing = false;
+    var drawingLineGeometry:THREE.Geometry = null;
+    var startPoint:THREE.Vector3 = null;
+    var tmpPoint:THREE.Vector3 = null;
+
+  //  debugger;
+    page.addEventListener('mouseup',(event)=>{
+      console.log('mouseup')
+      if(!isDrawing){
+        var geometry = new THREE.Geometry();
+        geometry.verticesNeedUpdate = true;
+        var material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 10 } );
+        var line = new THREE.Line(geometry, material);
+        (<any>window).line = line;
+        this.add(line);
+        drawingLineGeometry = geometry;
+        isDrawing = true;
+        startPoint = event.data.point;
+        drawingLineGeometry.vertices.push(new THREE.Vector3(startPoint.x, 10, startPoint.z));
+        pointIndex ++;
+      }
+
+      var point:THREE.Vector3 = event.data.point;
+      drawingLineGeometry.vertices.push(new THREE.Vector3(point.x, 10, point.z));
+      pointIndex ++;
+      tmpPoint = null;
+      console.log(line)
+    })
+
+    page.addEventListener('mousemove',(event)=>{
+      if(isDrawing){
+        var point:THREE.Vector3 = event.data.point;
+        drawingLineGeometry.vertices.pop();
+        tmpPoint = new THREE.Vector3(point.x, 10, point.z);
+        drawingLineGeometry.vertices.push(tmpPoint);
+      }
+
+    })
+
+    page.addEventListener('contextmenu',(event)=>{
+      isDrawing = false;
+      if(tmpPoint){
+          drawingLineGeometry.vertices.pop();
+      }
+      this.sk.drawScene();
+    })
+
+
+  }
   drawLine(x1,y1,x2,y2){
     var geometry = new THREE.Geometry();
-    geometry.vertices.push(new THREE.Vector3(x1, 0, y1));
-    geometry.vertices.push(new THREE.Vector3(x2, 0, y2));
-    var material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 500 } );
+    geometry.vertices.push(new THREE.Vector3(x1, 10, y1));
+    geometry.vertices.push(new THREE.Vector3(x2, 10, y2));
+    var material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 10 } );
     var line = new THREE.Line(geometry, material);
     console.log(line);
     this.add(line);
@@ -188,14 +197,14 @@ world.worldscale(1000);
     for (var j = 0; j < SUBDIVISIONS; j++) {
       geometry.vertices.push( curve.getPoint(j / SUBDIVISIONS) )
     }
-    var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 20 } );
-    material.linewidth = 200;
+    var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 10 } );
     var line = new THREE.Line(geometry, material);
     this.add(line);
   }
 
   //3D对象基类
   add(object: THREE.Object3D): void{
+    this.mouseEventHandler.addClickable(object);
     super.add(object);
   };
 

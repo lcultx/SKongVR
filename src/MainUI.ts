@@ -18,9 +18,8 @@ export default class MainUI{
         id:id
       });
 
-
-
       //
     })
   }
 }
+ 

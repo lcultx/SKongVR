@@ -8,7 +8,11 @@ export default class SKMouseEvent {
 
     }
 
-    fromIntersection(intersect:THREE.Intersection){
-
+    fromIntersection(intersect:THREE.Intersection):SKMouseEvent{
+  		this.distance = intersect.distance;
+  		this.point = intersect.point;
+  		this.face = intersect.face;
+  		this.object = intersect.object;
+      return this;
     }
 }
