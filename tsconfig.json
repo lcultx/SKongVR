@@ -58,6 +58,7 @@
         "./src/main.ts",
         "./src/MainUI.ts",
         "./src/objects/CustomShaderRotatingCube.ts",
+        "./src/objects/ExtrudeObject.ts",
         "./src/objects/MultiMaterialObject.ts",
         "./src/objects/RotatingCube.ts",
         "./src/objects/Sofa.ts",

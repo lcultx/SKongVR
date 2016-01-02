@@ -7,6 +7,8 @@ declare var OIMO;
 import Polygon from './logo/Polygon';
 import Star from './logo/Star';
 import Spiral from './logo/Spiral';
+import ExtrudeObject from './objects/ExtrudeObject';
+
 export default class SKScene extends THREE.Scene{
 
 
@@ -86,17 +88,36 @@ world.worldscale(1000);
       // note that because the ground does not cast a shadow, .castShadow is left false
       ground.receiveShadow = true;
       ground.name = 'ground'
-      this.add( ground );
+      //this.add( ground );
       this.ground = ground;
 
-        this.drawLine(0,0,10000,10000);
-        this.drawCurve({x:0,y:0},{x:-500,y:-500},{x:-1000,y:1000})
+        // this.drawLine(0,0,10000,10000);
+        // this.drawCurve({x:0,y:0},{x:-500,y:-500},{x:-1000,y:1000})
 
 
+        var polygon = new Polygon(5);
+        polygon.scale.set(1000,1000,1000);
+        polygon.rotation.x = -Math.PI/2;
+        polygon.position.x = 0;
+        this.add(polygon);
 
-        this.add(new Polygon(5));
-        this.add(new Star(5));
-        this.add(new Spiral(5,4*Math.PI/5,9/10));
+        var star = new Star(5)
+        star.scale.set(1000,1000,1000);
+        star.rotation.x = -Math.PI/2;
+        star.position.x = 1500;
+        this.add(star);
+
+        var spiral = new Spiral(20,4*Math.PI/5,9/10);
+        spiral.scale.set(1000,1000,1000);
+        spiral.rotation.x = -Math.PI/2;
+        spiral.position.x = 3000;
+        this.add(spiral);
+
+        //var g = new THREE.TubeGeometry();
+      //
+      // var mesh = new ExtrudeObject();
+      //
+      //  this.add( mesh );
 
 
   }
